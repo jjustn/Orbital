@@ -12,8 +12,10 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   TextEditingController controllerUserName = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
-  String testUserName = "arya"; // test => to be linked with firebase for proper auth
-  String testPassword = "orbital26"; // test => to be linked with firebase for proper auth
+  String testUserName =
+      "arya"; // test => to be linked with firebase for proper auth
+  String testPassword =
+      "orbital26"; // test => to be linked with firebase for proper auth
 
   @override
   void dispose() {
@@ -91,18 +93,49 @@ class _WelcomePageState extends State<WelcomePage> {
     );
   }
 
-  void onLoginPressed() {
-    if (testUserName == controllerUserName.text &&
-        testPassword == controllerPassword.text) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return WidgetTree();
-          },
+  void onLoginPressed() { // there has to be a better way than nested if calls
+    if (controllerUserName.text == "" || controllerPassword.text == "") {
+      // alert message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          duration: Duration(seconds: 2),
+          content: Text(
+            "Input your username/password",
+            style: TextStyle(color: Colors.white),
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Color.fromRGBO(71, 148, 168, 100),
         ),
       );
     }
-    
+
+    if (controllerUserName.text != "" && controllerPassword.text != "") {
+      // alert to show wrong username/password
+      if (testUserName != controllerUserName.text &&
+          testPassword != controllerPassword.text) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: Duration(seconds: 2),
+            content: Text(
+              "Wrong username/password",
+              style: TextStyle(color: Colors.white),
+            ),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Color.fromRGBO(71, 148, 168, 100),
+          ),
+        );
+      }
+      if (testUserName == controllerUserName.text &&
+          testPassword == controllerPassword.text) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return WidgetTree();
+            },
+          ),
+        );
+      }
+    }
   }
 }

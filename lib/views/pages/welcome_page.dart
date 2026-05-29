@@ -12,10 +12,9 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   TextEditingController controllerUserName = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
-  String testUserName =
-      "arya"; // test => to be linked with firebase for proper auth
-  String testPassword =
-      "orbital26"; // test => to be linked with firebase for proper auth
+  String testUserName = "arya"; // test => to be linked with firebase for proper auth
+  String testPassword = "orbital26"; // test => to be linked with firebase for proper auth
+  bool obscureBool = true;
 
   @override
   void dispose() {
@@ -40,7 +39,7 @@ class _WelcomePageState extends State<WelcomePage> {
               Padding(padding: EdgeInsets.all(20.0)),
               SizedBox(
                 width: 300.0,
-                child: TextField(
+                child: TextFormField(
                   controller: controllerUserName,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -53,14 +52,24 @@ class _WelcomePageState extends State<WelcomePage> {
               Padding(padding: EdgeInsets.all(5.0)),
               SizedBox(
                 width: 300.0,
-                child: TextField(
+                child: TextFormField(
                   controller: controllerPassword,
-                  obscureText: true,
+                  obscureText: obscureBool,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     label: Text("Password"),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          obscureBool = !obscureBool;
+                        });
+                      },
+                      icon: obscureBool
+                          ? Icon(Icons.visibility)
+                          : Icon(Icons.visibility_off),
+                    ),
                   ),
                 ),
               ),
@@ -93,12 +102,13 @@ class _WelcomePageState extends State<WelcomePage> {
     );
   }
 
-  void onLoginPressed() { // there has to be a better way than nested if calls
+  void onLoginPressed() {
+    // there has to be a better way than nested if calls
     if (controllerUserName.text == "" || controllerPassword.text == "") {
       // alert message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          duration: Duration(seconds: 2),
+          duration: Duration(seconds: 1),
           content: Text(
             "Input your username/password",
             style: TextStyle(color: Colors.white),
@@ -115,9 +125,9 @@ class _WelcomePageState extends State<WelcomePage> {
           testPassword != controllerPassword.text) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            duration: Duration(seconds: 2),
+            duration: Duration(seconds: 1),
             content: Text(
-              "Wrong username/password",
+              "Incorrect username/password",
               style: TextStyle(color: Colors.white),
             ),
             behavior: SnackBarBehavior.floating,

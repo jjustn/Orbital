@@ -20,14 +20,11 @@ class _SettingsPageState extends State<SettingsPage> {
             title: Text("Log Out"),
             onTap: () {
               seletedPageNotifier.value = 0;
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                   builder: (context) {
                     return WelcomePage();
                   },
-                ),
-              );
+                ), (route) => false);
             },
           ),
         ],

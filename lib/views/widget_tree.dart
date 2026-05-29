@@ -16,6 +16,7 @@ class WidgetTree extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("MOSAIC"),
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
             onPressed: () {

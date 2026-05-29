@@ -12,7 +12,63 @@ class _EventPageState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("Event Page")),
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(10.0),
+            width: MediaQuery.of(context).size.width,
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                suffixIcon: Icon(Icons.search_outlined),
+                hintText: "Search Events",
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                Padding(padding: EdgeInsets.all(5.0)),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        FilledButton.icon(
+                          onPressed: () {},
+                          icon: Icon(Icons.sports),
+                          label: Text("Sports"),
+                        ),
+                        Padding(padding: EdgeInsets.all(5.0)),
+                        FilledButton.icon(
+                          onPressed: () {},
+                          icon: Icon(Icons.airplanemode_on),
+                          label: Text("Travel"),
+                        ),
+                        Padding(padding: EdgeInsets.all(5.0)),
+                        FilledButton.icon(
+                          onPressed: () {},
+                          icon: Icon(Icons.movie_creation),
+                          label: Text("Movies"),
+                        ),
+                        Padding(padding: EdgeInsets.all(5.0)),
+                        FilledButton.icon(
+                          onPressed: () {},
+                          icon: Icon(Icons.local_dining),
+                          label: Text("Food & Drinks"),
+                        ),
+                        Padding(padding: EdgeInsets.all(5.0)),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(

@@ -121,7 +121,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
     if (controllerUserName.text != "" && controllerPassword.text != "") {
       // alert to show wrong username/password
-      if (testUserName != controllerUserName.text &&
+      if (testUserName != controllerUserName.text ||
           testPassword != controllerPassword.text) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

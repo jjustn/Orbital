@@ -24,7 +24,7 @@ class AuthLayout extends StatelessWidget {
             } else if (snapshot.hasData) {
               widget = HomePage();
             }
-            return WelcomePage();
+            return pageIfNotConnected ?? const WelcomePage();
           },
         ); // StreamBuilder
       },

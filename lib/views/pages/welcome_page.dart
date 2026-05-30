@@ -16,7 +16,7 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  TextEditingController controllerUserName = TextEditingController();
+  TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
   String testUserName =
       "arya"; // test => to be linked with firebase for proper auth
@@ -30,7 +30,7 @@ class _WelcomePageState extends State<WelcomePage> {
   void logIn() async {
     try {
       await authService.value.signIn(
-        email: controllerUserName.text,
+        email: controllerEmail.text,
         password: controllerPassword.text,
       );
       Navigator.pushReplacement(
@@ -51,7 +51,7 @@ class _WelcomePageState extends State<WelcomePage> {
   // disposing of data for now
   @override
   void dispose() {
-    controllerUserName.dispose();
+    controllerEmail.dispose();
     controllerPassword.dispose();
     super.dispose();
   }
@@ -73,7 +73,7 @@ class _WelcomePageState extends State<WelcomePage> {
               SizedBox(
                 width: 300.0,
                 child: TextFormField(
-                  controller: controllerUserName,
+                  controller: controllerEmail,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0),

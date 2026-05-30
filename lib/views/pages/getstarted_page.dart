@@ -26,8 +26,8 @@ class _GetStartedPageState extends State<GetStartedPage> {
   void register() async {
     try {
       await authService.value.createAccount(
-        email: controllerEmail.text,
-        password: controllerPassword.text,
+        email: controllerEmail.text.trim(),
+        password: controllerPassword.text.trim(),
       );
 
       Navigator.pushAndRemoveUntil(

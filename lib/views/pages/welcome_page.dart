@@ -12,10 +12,13 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   TextEditingController controllerUserName = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
-  String testUserName = "arya"; // test => to be linked with firebase for proper auth
-  String testPassword = "orbital26"; // test => to be linked with firebase for proper auth
+  String testUserName =
+      "arya"; // test => to be linked with firebase for proper auth
+  String testPassword =
+      "orbital26"; // test => to be linked with firebase for proper auth
   bool obscureBool = true;
 
+  // disposing of data for now
   @override
   void dispose() {
     controllerUserName.dispose();

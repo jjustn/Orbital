@@ -73,6 +73,31 @@ class _EventPageState extends State<EventPage> {
               ],
             ),
           ),
+          Container(
+            padding: EdgeInsets.only(left: 20.0, top: 20.0),
+            child: Text(
+              "Events",
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
+            ),
+          ),
+          Padding(padding: EdgeInsets.all(5.0)),
+          Container(
+            margin: EdgeInsets.only(left: 20.0, top: 5.0, right: 20.0),
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(),
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: Colors.amber,
+                  ),
+                  height: 200,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

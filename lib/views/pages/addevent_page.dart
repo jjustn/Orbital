@@ -8,7 +8,12 @@ class AddEventPage extends StatefulWidget {
 }
 
 class _AddEventPageState extends State<AddEventPage> {
-  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _startDateController = TextEditingController();
+  final TextEditingController _endDateController = TextEditingController();
+  final TextEditingController _startTimeController = TextEditingController();
+  final TextEditingController _endTimeController = TextEditingController();
+  
+  bool isSwitched = false;
 
   final List<String> categories = [
     "Sports",
@@ -19,7 +24,7 @@ class _AddEventPageState extends State<AddEventPage> {
   ];
   String? value;
 
-  Future<void> _selectDate() async {
+  Future<void> _selectStartDate() async {
     DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -29,7 +34,64 @@ class _AddEventPageState extends State<AddEventPage> {
 
     if (picked != null) {
       setState(() {
-        _dateController.text = picked.toString().split(" ")[0];
+        _startDateController.text =
+            picked.day.toString().padLeft(2, '0') +
+            "-" +
+            picked.month.toString().padLeft(2, '0') +
+            "-" +
+            picked.year.toString();
+      });
+    }
+  }
+
+  Future<void> _selectEndDate() async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2026),
+      lastDate: DateTime(2100),
+    );
+
+    if (picked != null) {
+      setState(() {
+        _endDateController.text =
+            picked.day.toString().padLeft(2, '0') +
+            "-" +
+            picked.month.toString().padLeft(2, '0') +
+            "-" +
+            picked.year.toString();
+      });
+    }
+  }
+
+  Future<void> _selectStartTime() async {
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (picked != null) {
+      setState(() {
+        _startTimeController.text =
+            picked.hour.toString().padLeft(2, '0') +
+            ":" +
+            picked.minute.toString().padLeft(2, '0');
+      });
+    }
+  }
+
+  Future<void> _selectEndTime() async {
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (picked != null) {
+      setState(() {
+        _endTimeController.text =
+            picked.hour.toString().padLeft(2, '0') +
+            ":" +
+            picked.minute.toString().padLeft(2, '0');
       });
     }
   }
@@ -68,37 +130,85 @@ class _AddEventPageState extends State<AddEventPage> {
                     ),
                   ),
                 ),
-                Padding(padding: const EdgeInsets.all(5.0)),
-                SizedBox(
-                  width: 350.0,
-                  child: TextFormField(
-                    controller: _dateController,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.calendar_month),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+                Padding(padding: const EdgeInsets.all(10.0)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 170.0,
+                      child: TextFormField(
+                        controller: _startDateController,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.calendar_month),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          label: Text("Start Date"),
+                        ),
+                        onTap: () {
+                          _selectStartDate();
+                        },
                       ),
-                      label: Text("Date"),
                     ),
-                    onTap: () {
-                      _selectDate();
-                    },
-                  ),
+                    Padding(padding: const EdgeInsets.all(5.0)),
+                    SizedBox(
+                      width: 170.0,
+                      child: TextFormField(
+                        controller: _endDateController,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.calendar_month),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          label: Text("End Date"),
+                        ),
+                        onTap: () {
+                          _selectEndDate();
+                        },
+                      ),
+                    ),
+                  ],
                 ),
                 Padding(padding: const EdgeInsets.all(5.0)),
-                SizedBox(
-                  width: 350.0,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.alarm),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 170.0,
+                      child: TextFormField(
+                        controller: _startTimeController,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.alarm),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          label: Text("Start Time"),
+                        ),
+                        onTap: () {
+                          _selectStartTime();
+                        },
                       ),
-                      label: Text("Time"),
                     ),
-                  ),
+                    Padding(padding: const EdgeInsets.all(5.0)),
+                    SizedBox(
+                      width: 170.0,
+                      child: TextFormField(
+                        controller: _endTimeController,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.alarm),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          label: Text("End Time"),
+                        ),
+                        onTap: () {
+                          _selectEndTime();
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                Padding(padding: const EdgeInsets.all(5.0)),
+                Padding(padding: const EdgeInsets.all(10.0)),
                 SizedBox(
                   height: 56,
                   width: 350,
@@ -128,6 +238,21 @@ class _AddEventPageState extends State<AddEventPage> {
                     ),
                   ),
                 ),
+                Padding(padding: const EdgeInsets.all(10.0)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                  Padding(padding: const EdgeInsets.all(10.0)),
+                  Text("Private Event", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0),),
+                  Padding(padding: const EdgeInsets.all(10.0)),
+                  Switch(value: isSwitched, 
+                onChanged: (value) {
+                  setState(() {
+                    isSwitched = value;
+                  });
+                }),
+                Padding(padding: const EdgeInsets.all(10.0)),
+                ],),
                 Padding(padding: const EdgeInsets.all(10.0)),
                 FilledButton(
                   style: FilledButton.styleFrom(minimumSize: Size(200.0, 40.0)),

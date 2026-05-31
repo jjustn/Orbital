@@ -17,11 +17,20 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(children: [
-              CircleAvatar(radius: 30.0, backgroundColor: Colors.teal,),
+              Container(
+                      padding: EdgeInsets.all(2.0),
+                      child: CircleAvatar(
+                        radius: 22.5,
+                        backgroundColor: Colors.teal,
+                        child: Text("A", style: TextStyle(fontSize: 25.0, color: Colors.white),),
+                      ),
+                    ),
               Padding(padding: EdgeInsets.only(left: 10.0)),
               Text("Arya", style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),),
-              Padding(padding: EdgeInsets.only(top: 4.0, left: 120.0)),
-              Text("6 following \n7 followers", style: TextStyle(fontSize: 17.0),)
+              Padding(padding: EdgeInsets.only(top: 4.0, left: 70.0)),
+              Text("7 following \n7 followers", style: TextStyle(fontSize: 17.0),),
+              Padding(padding: EdgeInsets.all(10.0)),
+              CircleAvatar(child: Icon(Icons.search))
             ],),
             Padding(padding: EdgeInsets.all(10.0)),
             Container(

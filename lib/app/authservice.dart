@@ -1,6 +1,5 @@
 import "package:firebase_auth/firebase_auth.dart";
 import 'package:flutter/material.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Reference to this AuthService
 ValueNotifier<AuthService> authService = ValueNotifier(AuthService());
@@ -34,26 +33,10 @@ class AuthService {
     required String email,
     required String password,
   }) async {
-    UserCredential userCredential = await firebaseAuth
-        .createUserWithEmailAndPassword(email: email, password: password);
-
-    // update username directly
-    return userCredential;
-
-    // all fields stored
-    // Can't seem to get implementation correctly
-    /*
-    await _firestore.collection('users').doc(userCredential.user!.uid).set({
-      'uid': userCredential.user!.uid,
-      'name': name,
-      'phone': phone,
-      'email': email,
-      'username': username,
-      'createdAt': DateTime.now(),
-    });
-    */
-
-    return userCredential;
+    return await firebaseAuth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 
   // Sign Out

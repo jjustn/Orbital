@@ -25,6 +25,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
 
   void register() async {
     try {
+      // Reverted back to your original working signup parameters
       await authService.value.createAccount(
         email: controllerEmail.text.trim(),
         password: controllerPassword.text.trim(),

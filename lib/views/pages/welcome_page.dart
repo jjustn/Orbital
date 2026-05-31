@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mosaic/views/pages/getstarted_page.dart';
 import 'package:mosaic/views/widget_tree.dart';
+import "package:firebase_auth/firebase_auth.dart";
+import 'package:mosaic/app/authservice.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -72,7 +74,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    label: Text("User Name"),
+                    label: Text("Email"),
                   ),
                 ),
               ),
@@ -100,6 +102,14 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 15.0),
+
+              Text(
+                errorMessage,
+                style: const TextStyle(color: Colors.redAccent, fontSize: 14.0),
+              ),
+
+              const SizedBox(height: 15.0),
               Padding(padding: EdgeInsets.all(5.0)),
               TextButton(
                 style: TextButton.styleFrom(minimumSize: Size(200.0, 40.0)),
@@ -130,49 +140,6 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   void onLoginPressed() {
-    // there has to be a better way than nested if calls
-    if (controllerUserName.text == "" || controllerPassword.text == "") {
-      // alert message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: Duration(seconds: 1),
-          content: Text(
-            "Input your username/password",
-            style: TextStyle(color: Colors.white),
-          ),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Color.fromRGBO(71, 148, 168, 100),
-        ),
-      );
-    }
-
-    if (controllerUserName.text != "" && controllerPassword.text != "") {
-      // alert to show wrong username/password
-      if (testUserName != controllerUserName.text ||
-          testPassword != controllerPassword.text) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            duration: Duration(seconds: 1),
-            content: Text(
-              "Incorrect username/password",
-              style: TextStyle(color: Colors.white),
-            ),
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Color.fromRGBO(71, 148, 168, 100),
-          ),
-        );
-      }
-      if (testUserName == controllerUserName.text &&
-          testPassword == controllerPassword.text) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return WidgetTree();
-            },
-          ),
-        );
-      }
-    }
+    logIn();
   }
 }

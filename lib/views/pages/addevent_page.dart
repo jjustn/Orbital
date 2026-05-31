@@ -21,6 +21,7 @@ class _AddEventPageState extends State<AddEventPage> {
     "Movies",
     "Food & Drinks",
     "Concerts",
+    "Others"
   ];
   String? value;
 

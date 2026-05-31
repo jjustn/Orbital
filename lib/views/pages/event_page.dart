@@ -60,6 +60,12 @@ class _EventPageState extends State<EventPage> {
                           label: Text("Food & Drinks"),
                         ),
                         Padding(padding: EdgeInsets.all(5.0)),
+                        FilledButton.icon(
+                          onPressed: () {},
+                          icon: Icon(Icons.music_note),
+                          label: Text("Concerts"),
+                        ),
+                        Padding(padding: EdgeInsets.all(5.0))
                       ],
                     ),
                   ],
